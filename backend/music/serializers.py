@@ -1,6 +1,9 @@
 from pathlib import Path
+
 from rest_framework import serializers
+
 from .models import Song
+
 
 class SongSerializer(serializers.ModelSerializer):
     stream_url = serializers.SerializerMethodField()
@@ -9,11 +12,35 @@ class SongSerializer(serializers.ModelSerializer):
     class Meta:
         model = Song
         fields = [
-            "id", "title", "artist", "album", "genre", "cover", "cover_url",
-            "original_file", "duration", "processing_status", "hls_master_path",
-            "stream_url", "created_at",
+            "id",
+            "title",
+            "artist",
+            "album",
+            "genre",
+            "cover",
+            "cover_url",
+            "original_file",
+            "duration",
+            "source_bitrate",
+            "processing_status",
+            "hls_master_path",
+            "stream_url",
+            "created_at",
         ]
-        read_only_fields = ["duration", "processing_status", "hls_master_path", "created_at"]
+        read_only_fields = [
+            "duration",
+            "source_bitrate",
+            "processing_status",
+            "hls_master_path",
+            "created_at",
+        ]
+        # The backend fills missing title/artist from the MP3 ID3 tags.
+        extra_kwargs = {
+            "title": {"required": False},
+            "artist": {"required": False},
+            "album": {"required": False},
+            "genre": {"required": False},
+        }
 
     def validate_original_file(self, value):
         if Path(value.name).suffix.lower() != ".mp3":

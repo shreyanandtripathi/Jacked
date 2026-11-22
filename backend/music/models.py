@@ -1,4 +1,10 @@
 from django.db import models
+from django.utils.text import slugify
+from uuid import uuid4
+
+def original_upload_path(instance, filename):
+    stem = slugify(instance.title or filename.rsplit(".", 1)[0])[:70] or "track"
+    return f"originals/{stem}-{uuid4().hex[:8]}.mp3"
 
 class Song(models.Model):
     STATUS_CHOICES = [
@@ -10,7 +16,8 @@ class Song(models.Model):
     album = models.CharField(max_length=200, blank=True)
     genre = models.CharField(max_length=100, blank=True)
     cover = models.ImageField(upload_to="covers/", blank=True, null=True)
-    original_file = models.FileField(upload_to="originals/")
+    original_file = models.FileField(upload_to=original_upload_path)
+    source_bitrate = models.PositiveIntegerField(default=0, help_text="Source bitrate in kbps")
     hls_master_path = models.CharField(max_length=500, blank=True)
     processing_status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")
     duration = models.FloatField(default=0)

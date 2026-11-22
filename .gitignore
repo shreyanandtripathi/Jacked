@@ -1,0 +1,88 @@
+
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Python tooling
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# =========================
+# Django
+# =========================
+*.log
+local_settings.py
+
+# Local database
+db.sqlite3
+db.sqlite3-journal
+
+# Collected static files
+staticfiles/
+
+# =========================
+# Uploaded music and media
+# =========================
+media/
+uploads/
+
+*.mp3
+*.wav
+*.flac
+*.aac
+*.ogg
+*.m4a
+
+# HLS generated files
+*.m3u8
+*.ts
+*.m4s
+
+# =========================
+# Secrets and environment
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# React / Node / Vite
+# =========================
+node_modules/
+dist/
+build/
+.vite/
+
+# npm / yarn / pnpm logs
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# =========================
+# IDEs and editors
+# =========================
+.vscode/
+.idea/
+*.suo
+*.user
+*.swp
+
+# =========================
+# Operating system
+# =========================
+.DS_Store
+Thumbs.db
+desktop.ini
